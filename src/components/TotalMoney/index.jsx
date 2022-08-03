@@ -1,5 +1,6 @@
-function TotalMoney({ listFilters }) {
-  const result = listFilters.reduce(
+function TotalMoney({ listTransactions }) {
+  console.log(listTransactions)
+  const result = listTransactions.reduce(
     (previousValue, currentValue) => previousValue + currentValue.value,
     0
   );

@@ -13,25 +13,40 @@ function App() {
     setIsLoggedIn(!isLoggedIn);
   }
 
-  const [listTransactions, setListTransactions] = useState([
-    // { description: "Salário recebido", type: "entrada", value: 2500 },
-    // { description: "Conta de luz", type: "saída", value: -150 },
-  ]);
-
-  const [listFilters, setListFilters] = useState(listTransactions);
+  const [listTransactions, setListTransactions] = useState([]);
 
   function transactionAll() {
-    setListFilters(listTransactions);
+    const list = listTransactions.map((item) => {
+      item.visibility = true;
+      return item;
+    });
+    setListTransactions(list);
   }
 
   function transactionEntry() {
-    const entry = listTransactions.filter((e) => e.type === "entrada");
-    setListFilters(entry);
+    const list = listTransactions.map((item) => {
+      if (item.type === "entrada") {
+        item.visibility = true;
+        return item;
+      } else {
+        item.visibility = false;
+        return item;
+      }
+    });
+    setListTransactions(list);
   }
 
   function transactionExpenses() {
-    const expense = listTransactions.filter((e) => e.type === "saída");
-    setListFilters(expense);
+    const list = listTransactions.map((item) => {
+      if (item.type === "saída") {
+        item.visibility = true;
+        return item;
+      } else {
+        item.visibility = false;
+        return item;
+      }
+    });
+    setListTransactions(list);
   }
 
   return (
@@ -53,7 +68,7 @@ function App() {
                 listTransactions={listTransactions}
                 setListTransactions={setListTransactions}
               />
-              <TotalMoney listFilters={listFilters} />
+              <TotalMoney listTransactions={listTransactions} />
             </section>
 
             <section className="sectionCards">
@@ -85,7 +100,10 @@ function App() {
                   </div>
                 </div>
               </div>
-              <List listTransactions={listTransactions} setListTransactions={setListTransactions} />
+              <List
+                listTransactions={listTransactions}
+                setListTransactions={setListTransactions}
+              />
             </section>
           </main>
         </>

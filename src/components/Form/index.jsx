@@ -13,8 +13,9 @@ function Form({ listTransactions, setListTransactions }) {
         description,
         type,
         value: type === "saída" ? parseInt("-" + value) : parseInt(value),
+        visibility: true,
       },
-    ]);   
+    ]);
   }
 
   return (
